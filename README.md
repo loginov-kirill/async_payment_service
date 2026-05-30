@@ -8,7 +8,7 @@ This is a microservice for asynchronous payment processing built with FastAPI, S
 - **Outbox Pattern**: Guarantees event delivery. Payments are saved and an outbox event is created in the same transaction. A separate `outbox_relay` worker reads the outbox and publishes to RabbitMQ.
 - **Idempotency**: Prevents duplicate payments. The `Idempotency-Key` header ensures that repeated requests with the same key do not create duplicate records.
 - **Message Broker (RabbitMQ + FastStream)**: Asynchronously processes payments.
-- **Retries & DLQ**: Uses `tenacity` for exponential backoff on webhook failures (up to 3 attempts). If completely unprocessable, the message is routed to a Dead Letter Queue (`payments.dlq`) exchange.
+- **Retries & DLQ**: Uses `tenacity` for exponential backoff on webhook failures (up to 3 attempts). If completely unprocessable, the message is routed to a Dead Letter Exchange (`payments.dlx`).
 
 ## Tech Stack
 - FastAPI, Pydantic v2
@@ -18,7 +18,13 @@ This is a microservice for asynchronous payment processing built with FastAPI, S
 
 ## Setup and Running
 
-You can spin up the entire application using Docker Compose:
+1. **Environment Variables**: First, prepare your environment configuration:
+   ```bash
+   cp .env.example .env
+   ```
+   (Feel free to modify the values in `.env` if needed, particularly `API_KEY`)
+
+2. **Docker Setup**: You can spin up the entire application using Docker Compose:
 
 ```bash
 docker-compose up --build
