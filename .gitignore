@@ -1,0 +1,28 @@
+# Environments
+.env
+.venv
+venv/
+.venv_bandit/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# IDE / AI Tools
+.claude/
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
